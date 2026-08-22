@@ -27,8 +27,8 @@ import btw.lowercase.skyboxify.screen.widget.Gidget;
 import btw.lowercase.skyboxify.screen.widget.ScrollableList;
 import btw.lowercase.skyboxify.screen.widget.SimpleButton;
 import btw.lowercase.skyboxify.screen.widget.Text;
-import btw.lowercase.skyboxify.skybox.SkyLayer;
-import btw.lowercase.skyboxify.skybox.Skybox;
+import btw.lowercase.skyboxify.skybox.impl.SkyLayer;
+import btw.lowercase.skyboxify.skybox.impl.Skybox;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
@@ -40,7 +40,7 @@ public class SkyLayerListScreen extends DebugScreen {
 	private final Skybox skybox;
 
 	public SkyLayerListScreen(final Screen parent, final Skybox skybox) {
-		super(Component.literal(skybox.getDimension().identifier().toString()), parent);
+		super(Component.literal(skybox.dimension().identifier().toString()), parent);
 		this.skybox = skybox;
 	}
 
@@ -48,13 +48,13 @@ public class SkyLayerListScreen extends DebugScreen {
 	protected void init() {
 		super.init();
 
-		this.gidgets.add(Text.builder(this.title.getString() + " (" + this.skybox.getLayers().size() + " layer(s)" + ")")
+		this.gidgets.add(Text.builder(this.title.getString() + " (" + this.skybox.layers().size() + " layer(s)" + ")")
 				.position(this.width / 2, 12)
 				.centered()
 				.build(this.font));
 
 		final List<Gidget> gidgets = new ArrayList<>();
-		for (final SkyLayer skyLayer : this.skybox.getLayers()) {
+		for (final SkyLayer skyLayer : this.skybox.layers()) {
 			final Component title = Component.literal(skyLayer.properties().toString());
 			gidgets.add(SimpleButton.builder(title, button -> this.minecraft.gui.setScreen(new SkyLayerInfoScreen(this, skyLayer, title))).build());
 		}

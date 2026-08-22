@@ -12,7 +12,7 @@ pluginManagement {
 }
 
 plugins {
-	id("dev.kikugie.stonecutter") version "0.8.3"
+	id("dev.kikugie.stonecutter") version "0.9.3"
 }
 
 stonecutter {
@@ -25,16 +25,15 @@ stonecutter {
             }
         }
 
-		mc("1.21.3", listOf("fabric"))
 		mc("1.21.4", listOf("fabric"))
-		mc("1.21.5", listOf("fabric"))
 		mc("1.21.8", listOf("fabric"))
 		mc("1.21.10", listOf("fabric"))
 		mc("1.21.11", listOf("fabric"))
 		mc("26.1", listOf("fabric"))
 		mc("26.2", listOf("fabric"))
+		//mc("26.3", listOf("fabric"))
 
-		vcsVersion = "1.21.8-fabric"
+		vcsVersion = "26.2-fabric"
 	}
 }
 

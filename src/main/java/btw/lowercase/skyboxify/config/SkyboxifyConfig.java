@@ -29,6 +29,8 @@ public class SkyboxifyConfig {
     @SerialEntry
     public boolean enabled = true;
     @SerialEntry
+    public boolean renderSky = true;
+    @SerialEntry
     public boolean renderSunMoon = true;
     @SerialEntry
     public boolean renderStars = false;
@@ -36,6 +38,4 @@ public class SkyboxifyConfig {
     public boolean showOverworldForUnknownDimension = true;
     @SerialEntry
     public boolean debug = false;
-    @SerialEntry
-    public boolean legacyRotationLogic = false;
 }

@@ -33,11 +33,11 @@ import dev.isxander.yacl3.config.v2.api.ConfigClassHandler;
 import dev.isxander.yacl3.config.v2.api.serializer.GsonConfigSerializerBuilder;
 import dev.isxander.yacl3.impl.controller.TickBoxControllerBuilderImpl;
 import dev.isxander.yacl3.platform.YACLPlatform;
+import it.unimi.dsi.fastutil.ints.Int2ObjectArrayMap;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 import java.util.function.Consumer;
@@ -47,7 +47,7 @@ public final class SkyboxifyImpl implements SkyboxifyApi {
     private static final SkyboxifyImpl INSTANCE = new SkyboxifyImpl();
 
     private final SkyboxManager skyboxManager = new SkyboxManager(this);
-    private final Map<Integer, Identifier> dimensionMapping = new HashMap<>();
+    private final Map<Integer, Identifier> dimensionMapping = new Int2ObjectArrayMap<>();
     private final ConfigClassHandler<SkyboxifyConfig> config = ConfigClassHandler.createBuilder(SkyboxifyConfig.class)
             .serializer((config) -> GsonConfigSerializerBuilder.create(config)
                     .setPath(YACLPlatform.getConfigDir().resolve("skyboxify.json"))
@@ -89,11 +89,11 @@ public final class SkyboxifyImpl implements SkyboxifyApi {
             final ConfigCategory.Builder category = ConfigCategory.createBuilder();
             category.name(title);
             category.option(option("enabled", defaults.enabled, () -> config.enabled, val -> config.enabled = val));
+            category.option(option("renderSky", defaults.renderSky, () -> config.renderSky, val -> config.renderSky = val));
             category.option(option("renderSunMoon", defaults.renderSunMoon, () -> config.renderSunMoon, val -> config.renderSunMoon = val));
             category.option(option("renderStars", defaults.renderStars, () -> config.renderStars, val -> config.renderStars = val));
             category.option(option("showOverworldForUnknownDimension", defaults.showOverworldForUnknownDimension, () -> config.showOverworldForUnknownDimension, val -> config.showOverworldForUnknownDimension = val));
             category.option(option("debug", defaults.debug, () -> config.debug, val -> config.debug = val));
-            category.option(option("legacyRotationLogic", defaults.legacyRotationLogic, () -> config.legacyRotationLogic, val -> config.legacyRotationLogic = val));
             builder.category(category.build());
 
             return builder;
@@ -136,6 +136,7 @@ public final class SkyboxifyImpl implements SkyboxifyApi {
             for (final int key : this.dimensionMapping.keySet()) {
                 if (Objects.equals(this.dimensionMapping.get(key), modernId)) {
                     currentId = key;
+                    break;
                 }
             }
 

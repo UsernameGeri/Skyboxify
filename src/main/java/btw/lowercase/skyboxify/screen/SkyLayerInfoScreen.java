@@ -25,7 +25,7 @@ package btw.lowercase.skyboxify.screen;
 
 import btw.lowercase.skyboxify.screen.widget.SimpleButton;
 import btw.lowercase.skyboxify.screen.widget.Text;
-import btw.lowercase.skyboxify.skybox.SkyLayer;
+import btw.lowercase.skyboxify.skybox.impl.SkyLayer;
 import btw.lowercase.skyboxify.utils.CommonUtils;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.CommonComponents;
@@ -58,7 +58,7 @@ public class SkyLayerInfoScreen extends DebugScreen {
 		addLine("Loop: " + this.skyLayer.loop());
 		addLine("Biomes: " + this.skyLayer.biomes());
 		addLine("Heights: " + this.skyLayer.heights());
-		addLine("Weather Conditions: " + this.skyLayer.weatherConditions());
+		addLine("Weather Conditions: " + this.skyLayer.weather());
 
 		this.gidgets.add(SimpleButton.builder(CommonComponents.GUI_BACK, button -> this.onClose())
 				.position((this.width / 2) - (SimpleButton.DEFAULT_WIDTH / 2), this.height - SimpleButton.DEFAULT_HEIGHT - 4)

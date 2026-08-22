@@ -27,7 +27,7 @@ import btw.lowercase.skyboxify.screen.widget.Gidget;
 import btw.lowercase.skyboxify.screen.widget.ScrollableList;
 import btw.lowercase.skyboxify.screen.widget.SimpleButton;
 import btw.lowercase.skyboxify.screen.widget.Text;
-import btw.lowercase.skyboxify.skybox.Skybox;
+import btw.lowercase.skyboxify.skybox.impl.Skybox;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
@@ -56,7 +56,7 @@ public class SkyboxListScreen extends DebugScreen {
 
 		final List<Gidget> gidgets = new ArrayList<>();
 		for (final Skybox skybox : this.skyboxes) {
-			final Component name = Component.literal(StringUtil.stripColor(skybox.getPackName())).withColor(skybox.isActive() ? ARGB.color(155, 0x00FF00) : ARGB.color(155, 0xFF0000));
+			final Component name = Component.literal(StringUtil.stripColor(skybox.packName())).withColor(skybox.isActive() ? ARGB.color(155, 0x00FF00) : ARGB.color(155, 0xFF0000));
 			gidgets.add(SimpleButton.builder(name, button -> this.minecraft.gui.setScreen(new SkyLayerListScreen(this, skybox))).build());
 		}
 

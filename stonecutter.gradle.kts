@@ -19,7 +19,7 @@ stonecutter {
 }
 
 tasks.named("publishMods") {
-    group = "build"
+    group = "publishing"
 }
 
 // Header

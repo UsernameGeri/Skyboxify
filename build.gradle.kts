@@ -134,6 +134,11 @@ stonecutter {
     }
 
     replacements.string {
+        direction = eval(current.version, ">=26.1")
+        replace("ClientTickEvents.END_WORLD_TICK", "ClientTickEvents.END_LEVEL_TICK")
+    }
+
+    replacements.string {
         direction = eval(current.version, ">=1.21.11")
         replace("ResourceLocation", "Identifier")
     }
@@ -183,9 +188,11 @@ repositories {
     maven("https://pkgs.dev.azure.com/djtheredstoner/DevAuth/_packaging/public/maven/v1") // DevAuth
     maven("https://maven.neoforged.net/releases") // NeoForge
     maven("https://maven.bawnorton.com/releases") // MixinSquared
-    maven("https://maven.terraformersmc.com") // Mod Menu
     maven("https://api.modrinth.com/maven") // Modrinth
     maven("https://maven.isxander.dev/releases") // YACL
+    maven("https://maven.teamresourceful.com/repository/maven-public/") {
+        content { includeGroup("com.terraformersmc") } // Mod Menu
+    }
 }
 
 val loom: LoomGradleExtensionAPI by extensions
@@ -221,20 +228,13 @@ dependencies {
     include(implementation(annotationProcessor("com.github.bawnorton.mixinsquared:mixinsquared-${loader.name}:${deps.mixinsquaredVersion}")!!)!!)
     if (loader.isFabric) {
         modImplementation("net.fabricmc:fabric-loader:${deps.fabricLoaderVersion}")
-
-        modImplementation(fabricApi.module("fabric-resource-loader-v0", deps.fabricApiVersion!!))
-        modImplementation(fabricApi.module("fabric-command-api-v2", deps.fabricApiVersion))
-
+        modImplementation("net.fabricmc.fabric-api:fabric-api:${deps.fabricApiVersion}")
         optionalProp("deps.modmenu_version") { prop ->
-            modImplementation("com.terraformersmc:modmenu:${prop}") {
-                exclude(group="net.fabricmc.fabric-api")
-            }
+            modImplementation("com.terraformersmc:modmenu:${prop}")
         }
 
         optionalProp("deps.yacl_version") { prop ->
-            modImplementation("dev.isxander:yet-another-config-lib:$prop") {
-                exclude(group="net.fabricmc.fabric-api")
-            }
+            modImplementation("dev.isxander:yet-another-config-lib:$prop")
         }
     } else if (loader.isNeoForge) {
         // TODO: "neoForge"("net.neoforged:neoforge:${deps.neoForgeVersion}")
@@ -275,6 +275,7 @@ publishMods {
             minecraftVersions.addAll(mod.minecraftVersionRange.split(' '))
             if (loader.isFabric) {
                 requires("fabric-api")
+                requires("yacl")
                 optional("modmenu")
             }
         }
@@ -283,12 +284,22 @@ publishMods {
     if (curseforgeId != null) {
         curseforge {
             projectId = curseforgeId
+            projectSlug = mod.id
             accessToken = findProperty("curseforge.token").toString()
             minecraftVersions.addAll(mod.minecraftVersionRange.split(' '))
+            client = true
             if (loader.isFabric) {
                 requires("fabric-api")
+                requires("yacl")
                 optional("modmenu")
             }
+        }
+    }
+
+    val discordWebhookUrl = findProperty("discord.webhook")?.toString()?.takeIf { it.isNotBlank() }
+    if (discordWebhookUrl != null) {
+        discord {
+            webhookUrl = discordWebhookUrl
         }
     }
 }

@@ -4,13 +4,13 @@
 	"options.skyboxify.enabled.tooltip": "Enable/disable the custom skybox rendering.",
 	"options.skyboxify.showOverworldForUnknownDimension": "Show Overworld In Unknown Dimensions",
 	"options.skyboxify.showOverworldForUnknownDimension.tooltip": "Will show the overworld skyboxes in unknown dimensions. Will not show in nether/end though unless a skybox defines it.",
+	"options.skyboxify.renderSky": "Render Sky",
+	"options.skyboxify.renderSky.tooltip": "Enable/disable rendering of the sky.",
 	"options.skyboxify.renderSunMoon": "Render Sun & Moon",
 	"options.skyboxify.renderSunMoon.tooltip": "Enable/disable rendering of the sun and moon.",
 	"options.skyboxify.renderStars": "Render Stars",
 	"options.skyboxify.renderStars.tooltip": "Force enable rendering of stars when a Skybox resource pack is enabled & active.",
 	"options.skyboxify.debug": "Debug Mode",
 	"options.skyboxify.debug.tooltip": "Enable debug logging & other debugging aspects.",
-	"options.skyboxify.legacyRotationLogic": "[DM] Legacy Rotation Logic",
-	"options.skyboxify.legacyRotationLogic.tooltip": "Enables legacy rotation logic when rotating the sky from PR #24.\nNOTE: Requires \"Debug Mode\" to be on.",
 	"options.reset": "Reset"
 }
